@@ -1,9 +1,9 @@
 const text = document.querySelector('#text').innerHTML;
+
 let letters = [];
 let letterElements = [];
 
 let currentLetter = 0;
-
 let correctChars = 0;
 
 for(let i = 0; i < text.length; i++){
@@ -22,6 +22,12 @@ let accuracy = document.createElement('p');
 accuracy.id = 'accuracy';
 accuracy.innerHTML = 'Accuracy: 0%';
 document.body.appendChild(accuracy);
+
+let resetButton = document.createElement('button');
+resetButton.id = 'reset';
+resetButton.innerText = 'Reset';
+resetButton.style.display = 'block';
+document.body.appendChild(resetButton);
 
 function getKey(event){
   if(event.key === letters[currentLetter]){
@@ -52,3 +58,16 @@ function getKey(event){
 }
 
 document.body.addEventListener('keydown', getKey);
+
+// Button
+resetButton.addEventListener('click', () => {
+  letterElements.forEach(letter => {
+    letter.style.color = 'black';
+    letter.style.backgroundColor = 'white';
+  });
+  resetButton.blur();
+  correctChars = 0;
+  currentLetter = 0;
+  accuracy.style.display = 'none';
+  document.body.addEventListener('keydown', getKey);
+});
