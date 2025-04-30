@@ -4,6 +4,8 @@ let letterElements = [];
 
 let currentLetter = 0;
 
+let correctChars = 0;
+
 for(let i = 0; i < text.length; i++){
   letters.push(text[i]);
 }
@@ -26,9 +28,11 @@ function getKey(event){
     if(letters[currentLetter] === ' '){
       letterElements[currentLetter].style.backgroundColor = 'rgb(0, 200, 0)';
       currentLetter++;
+      correctChars++;
     } else {
       letterElements[currentLetter].style.color = 'rgb(0, 200, 0)';
       currentLetter++;
+      correctChars++;
     }
   } else {
     if(letters[currentLetter] === ' '){
@@ -42,6 +46,8 @@ function getKey(event){
 
   if(currentLetter === letters.length){
     document.body.removeEventListener('keydown', getKey);
+    accuracy.style.display = 'block';
+    accuracy.innerHTML = `Accuracy: ${Math.floor((correctChars * 100) / letters.length)}%`;
   }
 }
 
