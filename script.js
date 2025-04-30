@@ -16,6 +16,11 @@ letters.forEach(letter => {
   letterElements.push(newLetter);
 });
 
+let accuracy = document.createElement('p');
+accuracy.id = 'accuracy';
+accuracy.innerHTML = 'Accuracy: 0%';
+document.body.appendChild(accuracy);
+
 function getKey(event){
   if(event.key === letters[currentLetter]){
     if(letters[currentLetter] === ' '){
