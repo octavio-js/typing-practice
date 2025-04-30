@@ -5,3 +5,9 @@
 #text {
   display: none;
 }
+
+.letter {
+  display: inline;
+  font-size: 32px;
+  font-family: sans-serif;
+}

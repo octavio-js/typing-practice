@@ -9,6 +9,5 @@ letters.forEach(letter => {
   let newLetter = document.createElement('p');
   newLetter.innerHTML = letter;
   newLetter.className = 'letter';
-  newLetter.style.display = 'inline';
   document.body.appendChild(newLetter);
 });
