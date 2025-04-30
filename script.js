@@ -18,11 +18,25 @@ letters.forEach(letter => {
 
 function getKey(event){
   if(event.key === letters[currentLetter]){
-    currentLetter++;
-    console.log('good');
+    if(letters[currentLetter] === ' '){
+      letterElements[currentLetter].style.backgroundColor = 'rgb(0, 200, 0)';
+      currentLetter++;
+    } else {
+      letterElements[currentLetter].style.color = 'rgb(0, 200, 0)';
+      currentLetter++;
+    }
   } else {
-    currentLetter++;
-    console.log('bad');
+    if(letters[currentLetter] === ' '){
+      letterElements[currentLetter].style.backgroundColor = 'red';
+      currentLetter++;
+    } else {
+      letterElements[currentLetter].style.color = 'red';
+      currentLetter++;
+    }
+  }
+
+  if(currentLetter === letters.length){
+    document.body.removeEventListener('keydown', getKey);
   }
 }
 
