@@ -1,33 +1,23 @@
-const text = document.querySelector('#text').innerHTML;
-
+let text = '';
 let letters = [];
 let letterElements = [];
-
 let currentLetter = 0;
 let correctChars = 0;
 
-for(let i = 0; i < text.length; i++){
-  letters.push(text[i]);
-}
+document.addEventListener('DOMContentLoaded', generateText);
 
-letters.forEach(letter => {
-  let newLetter = document.createElement('p');
-  newLetter.innerHTML = letter;
-  newLetter.className = 'letter';
-  document.body.appendChild(newLetter);
-  letterElements.push(newLetter);
-});
+let lettersContainer = document.createElement('div');
+lettersContainer.id = 'letters-container';
+document.body.appendChild(lettersContainer);
 
 let accuracy = document.createElement('p');
 accuracy.id = 'accuracy';
 accuracy.innerHTML = 'Accuracy: 0%';
-document.body.appendChild(accuracy);
 
 let resetButton = document.createElement('button');
 resetButton.id = 'reset';
 resetButton.innerText = 'Reset';
 resetButton.style.display = 'block';
-document.body.appendChild(resetButton);
 
 function getKey(event){
   if(event.key === letters[currentLetter]){
@@ -59,15 +49,48 @@ function getKey(event){
 
 document.body.addEventListener('keydown', getKey);
 
-// Button
+// Reset Button
 resetButton.addEventListener('click', () => {
-  letterElements.forEach(letter => {
-    letter.style.color = 'black';
-    letter.style.backgroundColor = 'white';
-  });
   resetButton.blur();
-  correctChars = 0;
+  letterElements.forEach(letter => {
+    lettersContainer.removeChild(letter);
+  });
+  text = '';
+  letters = [];
+  letterElements = [];
   currentLetter = 0;
+  correctChars = 0;
   accuracy.style.display = 'none';
   document.body.addEventListener('keydown', getKey);
+  generateText();
 });
+
+// Generate Text
+function generateText(){
+  fetch('randomWords.json')
+  .then(res => res.json())
+  .then(words => {
+    for(let i = 0; i < 10; i++){
+      let randomIndex = Math.floor(Math.random() * words.length);
+      if(i === 0){
+        text += words[randomIndex];
+      } else {
+        text += ' ' + words[randomIndex];
+      }
+    }
+
+    for(let i = 0; i < text.length; i++){
+      letters.push(text[i]);
+    }
+  
+    letters.forEach(letter => {
+      let newLetter = document.createElement('p');
+      newLetter.innerHTML = letter;
+      newLetter.className = 'letter';
+      lettersContainer.appendChild(newLetter);
+      letterElements.push(newLetter);
+    });
+  });
+  document.body.appendChild(accuracy);
+  document.body.appendChild(resetButton);
+}
