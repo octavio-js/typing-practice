@@ -1,6 +1,6 @@
 const fs = require('fs');
 const randomWords = require('random-words');
-const FILE = 'randomWords.json';
+const FILE = 'resources/json/randomWords.json';
 const TOTAL_WORDS = 2000;
 const stream = fs.createWriteStream(FILE);
 

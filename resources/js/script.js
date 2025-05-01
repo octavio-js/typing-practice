@@ -67,7 +67,7 @@ resetButton.addEventListener('click', () => {
 
 // Generate Text
 function generateText(){
-  fetch('randomWords.json')
+  fetch('resources/json/randomWords.json')
   .then(res => res.json())
   .then(words => {
     for(let i = 0; i < 10; i++){
