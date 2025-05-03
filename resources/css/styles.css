@@ -33,8 +33,16 @@ main {
   justify-content: center;
 }
 
-#headers {
+#hero {
   margin-right: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.keyzen-logo {
+  width: 75px;
+  height: auto;
+  display: inline;
 }
 
 #amount-of-words {
