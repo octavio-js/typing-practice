@@ -13,11 +13,21 @@ document.body.appendChild(lettersContainer);
 let accuracy = document.createElement('p');
 accuracy.id = 'accuracy';
 accuracy.innerHTML = 'Accuracy: 0%';
+document.body.appendChild(accuracy);
 
-let resetButton = document.createElement('button');
+let resetDiv = document.createElement('div');
+resetDiv.id = 'reset-container';
+document.body.appendChild(resetDiv);
+
+let resetButton = document.createElement('p');
 resetButton.id = 'reset';
-resetButton.innerText = 'Reset';
-resetButton.style.display = 'block';
+resetButton.innerText = '⟳';
+resetButton.style.display = 'inline';
+resetDiv.appendChild(resetButton);
+
+let pressEnterTip = document.createElement('p');
+pressEnterTip.innerHTML = 'Press <b>Enter</b> or click Reset to try again';
+resetDiv.appendChild(pressEnterTip);
 
 function getKey(event){
   if(event.key === letters[currentLetter]){
@@ -48,9 +58,16 @@ function getKey(event){
 }
 
 document.body.addEventListener('keydown', getKey);
+document.body.addEventListener('keydown', event => {
+  if(event.key === 'Enter'){
+    resetPage();
+  }
+});
 
 // Reset Button
-resetButton.addEventListener('click', () => {
+resetButton.addEventListener('click', resetPage);
+
+function resetPage(){
   resetButton.blur();
   letterElements.forEach(letter => {
     lettersContainer.removeChild(letter);
@@ -63,7 +80,7 @@ resetButton.addEventListener('click', () => {
   accuracy.style.display = 'none';
   document.body.addEventListener('keydown', getKey);
   generateText();
-});
+}
 
 // Generate Text
 function generateText(){
@@ -91,6 +108,4 @@ function generateText(){
       letterElements.push(newLetter);
     });
   });
-  document.body.appendChild(accuracy);
-  document.body.appendChild(resetButton);
 }
