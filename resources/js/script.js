@@ -12,9 +12,15 @@ const selectWordsButtons = document.querySelectorAll('.word-choice');
 
 document.addEventListener('DOMContentLoaded', generateText);
 
-function getKey(event){
-  if(event.key === letters[currentLetter]){
-    if(letters[currentLetter] === ' '){
+function getKey(event) {
+  const rect = letterElements[currentLetter].getBoundingClientRect();
+  const containerRect = lettersContainer.getBoundingClientRect();
+  if (rect.bottom > containerRect.bottom - 20) {
+    lettersContainer.scrollTop += rect.bottom - containerRect.bottom + 40;
+  }  
+
+  if (event.key === letters[currentLetter]) {
+    if (letters[currentLetter] === ' ') {
       letterElements[currentLetter].style.backgroundColor = '#5f8c5f';
       currentLetter++;
       correctChars++;
@@ -24,7 +30,7 @@ function getKey(event){
       correctChars++;
     }
   } else {
-    if(letters[currentLetter] === ' '){
+    if (letters[currentLetter] === ' ') {
       letterElements[currentLetter].style.backgroundColor = '#cc6d5c';
       currentLetter++;
     } else {
@@ -33,7 +39,7 @@ function getKey(event){
     }
   }
 
-  if(currentLetter === letters.length){
+  if (currentLetter === letters.length) {
     document.body.removeEventListener('keydown', getKey);
     accuracy.style.display = 'block';
     accuracy.innerHTML = `Accuracy: ${Math.floor((correctChars * 100) / letters.length)}%`;
@@ -42,7 +48,7 @@ function getKey(event){
 
 document.body.addEventListener('keydown', getKey);
 document.body.addEventListener('keydown', event => {
-  if(event.key === 'Enter'){
+  if (event.key === 'Enter') {
     resetPage();
   }
 });
@@ -50,7 +56,7 @@ document.body.addEventListener('keydown', event => {
 // Reset Button
 resetButton.addEventListener('click', resetPage);
 
-function resetPage(){
+function resetPage() {
   letterElements.forEach(letter => {
     lettersContainer.removeChild(letter);
   });
@@ -65,7 +71,7 @@ function resetPage(){
 }
 
 // Generate Text
-function generateText(){
+function generateText() {
   letterElements.forEach(letter => {
     lettersContainer.removeChild(letter);
   });
@@ -76,34 +82,35 @@ function generateText(){
   correctChars = 0;
   accuracy.style.display = 'none';
   fetch('resources/json/randomWords.json')
-  .then(res => res.json())
-  .then(words => {
-    for(let i = 0; i < amountOfWords; i++){
-      let randomIndex = Math.floor(Math.random() * words.length);
-      if(i === 0){
-        text += words[randomIndex];
-      } else {
-        text += ' ' + words[randomIndex];
+    .then(res => res.json())
+    .then(words => {
+      for (let i = 0; i < amountOfWords; i++) {
+        let randomIndex = Math.floor(Math.random() * words.length);
+        if (i === 0) {
+          text += words[randomIndex];
+        } else {
+          text += ' ' + words[randomIndex];
+        }
       }
-    }
 
-    for(let i = 0; i < text.length; i++){
-      letters.push(text[i]);
-    }
+      for (let i = 0; i < text.length; i++) {
+        letters.push(text[i]);
+      }
 
-    letters.forEach(letter => {
-      let newLetter = document.createElement('p');
-      newLetter.innerHTML = letter;
-      newLetter.className = 'letter';
-      lettersContainer.appendChild(newLetter);
-      letterElements.push(newLetter);
+      letters.forEach(letter => {
+        let newLetter = document.createElement('p');
+        newLetter.innerHTML = letter;
+        newLetter.className = 'letter';
+        lettersContainer.appendChild(newLetter);
+        letterElements.push(newLetter);
+      });
     });
-  });
 }
 
 // Select amount of words
 selectWordsButtons.forEach(button => {
   button.addEventListener('click', event => {
+    button.blur();
     amountOfWords = Number(event.target.innerText);
     generateText();
   });
