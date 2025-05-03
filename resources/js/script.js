@@ -16,7 +16,7 @@ function getKey(event) {
   const rect = letterElements[currentLetter].getBoundingClientRect();
   const containerRect = lettersContainer.getBoundingClientRect();
   if (rect.bottom > containerRect.bottom - 20) {
-    lettersContainer.scrollTop += rect.bottom - containerRect.bottom + 40;
+    lettersContainer.scrollTop += rect.bottom - containerRect.bottom + 60;
   }  
 
   if (event.key === letters[currentLetter]) {
