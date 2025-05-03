@@ -3,10 +3,12 @@ let letters = [];
 let letterElements = [];
 let currentLetter = 0;
 let correctChars = 0;
+let amountOfWords = 30;
 
 const lettersContainer = document.querySelector('#letters-container');
 const accuracy = document.querySelector('#accuracy');
 const resetButton = document.querySelector('#reset');
+const selectWordsButtons = document.querySelectorAll('.word-choice');
 
 document.addEventListener('DOMContentLoaded', generateText);
 
@@ -64,10 +66,19 @@ function resetPage(){
 
 // Generate Text
 function generateText(){
+  letterElements.forEach(letter => {
+    lettersContainer.removeChild(letter);
+  });
+  text = '';
+  letters = [];
+  letterElements = [];
+  currentLetter = 0;
+  correctChars = 0;
+  accuracy.style.display = 'none';
   fetch('resources/json/randomWords.json')
   .then(res => res.json())
   .then(words => {
-    for(let i = 0; i < 10; i++){
+    for(let i = 0; i < amountOfWords; i++){
       let randomIndex = Math.floor(Math.random() * words.length);
       if(i === 0){
         text += words[randomIndex];
@@ -89,3 +100,11 @@ function generateText(){
     });
   });
 }
+
+// Select amount of words
+selectWordsButtons.forEach(button => {
+  button.addEventListener('click', event => {
+    amountOfWords = Number(event.target.innerText);
+    generateText();
+  });
+});
