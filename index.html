@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,29 @@
   <script src="./resources/js/script.js" defer></script>
   <title>KeyZen</title>
 </head>
+
 <body>
-  <p id="text">this is a test</p>
+  <header>
+    <div id="headers">
+      <h1>KeyZen</h1>
+      <h2>Type in Tranquility. Focus in Flow.</h2>
+    </div>
+    <div id="amount-of-words">
+      <h4>Select amount of words</h4>
+      <button class="word-choice">30</button>
+      <button class="word-choice">50</button>
+      <button class="word-choice">100</button>
+      <button class="word-choice">250</button>
+    </div>
+  </header>
+  <main>
+    <div id="letters-container"></div>
+    <p id="accuracy">Accuracy: 0%</p>
+    <div id="reset-container">
+      <p id="reset">⟳</p>
+      <p>Press <b>Enter</b> or click Reset to try again</p>
+    </div>
+  </main>
 </body>
+
 </html>

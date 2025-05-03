@@ -4,48 +4,29 @@ let letterElements = [];
 let currentLetter = 0;
 let correctChars = 0;
 
+const lettersContainer = document.querySelector('#letters-container');
+const accuracy = document.querySelector('#accuracy');
+const resetButton = document.querySelector('#reset');
+
 document.addEventListener('DOMContentLoaded', generateText);
-
-let lettersContainer = document.createElement('div');
-lettersContainer.id = 'letters-container';
-document.body.appendChild(lettersContainer);
-
-let accuracy = document.createElement('p');
-accuracy.id = 'accuracy';
-accuracy.innerHTML = 'Accuracy: 0%';
-document.body.appendChild(accuracy);
-
-let resetDiv = document.createElement('div');
-resetDiv.id = 'reset-container';
-document.body.appendChild(resetDiv);
-
-let resetButton = document.createElement('p');
-resetButton.id = 'reset';
-resetButton.innerText = '⟳';
-resetButton.style.display = 'inline';
-resetDiv.appendChild(resetButton);
-
-let pressEnterTip = document.createElement('p');
-pressEnterTip.innerHTML = 'Press <b>Enter</b> or click Reset to try again';
-resetDiv.appendChild(pressEnterTip);
 
 function getKey(event){
   if(event.key === letters[currentLetter]){
     if(letters[currentLetter] === ' '){
-      letterElements[currentLetter].style.backgroundColor = 'rgb(0, 200, 0)';
+      letterElements[currentLetter].style.backgroundColor = '#5f8c5f';
       currentLetter++;
       correctChars++;
     } else {
-      letterElements[currentLetter].style.color = 'rgb(0, 200, 0)';
+      letterElements[currentLetter].style.color = '#5f8c5f';
       currentLetter++;
       correctChars++;
     }
   } else {
     if(letters[currentLetter] === ' '){
-      letterElements[currentLetter].style.backgroundColor = 'red';
+      letterElements[currentLetter].style.backgroundColor = '#cc6d5c';
       currentLetter++;
     } else {
-      letterElements[currentLetter].style.color = 'red';
+      letterElements[currentLetter].style.color = '#cc6d5c';
       currentLetter++;
     }
   }
@@ -68,7 +49,6 @@ document.body.addEventListener('keydown', event => {
 resetButton.addEventListener('click', resetPage);
 
 function resetPage(){
-  resetButton.blur();
   letterElements.forEach(letter => {
     lettersContainer.removeChild(letter);
   });
@@ -99,7 +79,7 @@ function generateText(){
     for(let i = 0; i < text.length; i++){
       letters.push(text[i]);
     }
-  
+
     letters.forEach(letter => {
       let newLetter = document.createElement('p');
       newLetter.innerHTML = letter;
