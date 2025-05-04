@@ -13,11 +13,19 @@ const selectWordsButtons = document.querySelectorAll('.word-choice');
 document.addEventListener('DOMContentLoaded', generateText);
 
 function getKey(event) {
+  try {
+    if (letters[currentLetter + 1] === ' ') {
+      letterElements[currentLetter + 1].style.backgroundColor = '#c2b8a3';
+    } else {
+      letterElements[currentLetter + 1].style.color = '#f0a202';
+    }
+  } catch(e){}
+
   const rect = letterElements[currentLetter].getBoundingClientRect();
   const containerRect = lettersContainer.getBoundingClientRect();
   if (rect.bottom > containerRect.bottom - 20) {
     lettersContainer.scrollTop += rect.bottom - containerRect.bottom + 60;
-  }  
+  }
 
   if (event.key === letters[currentLetter]) {
     if (letters[currentLetter] === ' ') {
