@@ -21,20 +21,20 @@ function getKey(event) {
 
   if (event.key === letters[currentLetter]) {
     if (letters[currentLetter] === ' ') {
-      letterElements[currentLetter].style.backgroundColor = '#5f8c5f';
+      letterElements[currentLetter].style.backgroundColor = '#3fa796';
       currentLetter++;
       correctChars++;
     } else {
-      letterElements[currentLetter].style.color = '#5f8c5f';
+      letterElements[currentLetter].style.color = '#3fa796';
       currentLetter++;
       correctChars++;
     }
   } else {
     if (letters[currentLetter] === ' ') {
-      letterElements[currentLetter].style.backgroundColor = '#cc6d5c';
+      letterElements[currentLetter].style.backgroundColor = '#d47fa6';
       currentLetter++;
     } else {
-      letterElements[currentLetter].style.color = '#cc6d5c';
+      letterElements[currentLetter].style.color = '#d47fa6';
       currentLetter++;
     }
   }
