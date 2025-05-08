@@ -171,6 +171,7 @@ let areLightThemesOpen = false;
 let areDarkThemesOpen = false;
 
 const themes = {
+  // Light Themes
   'soft-focus': {
     background: '#dfe6e6',
     typingBackground: '#e4f1ef',
@@ -181,7 +182,8 @@ const themes = {
     incorrectLetter: '#d47fa6',
     nextLetter: '#f0a202',
     spaces: '#c2b8a3',
-    hover: '#8abbb3'
+    hover: '#8abbb3',
+    isThemeLight: true
   },
   'sunrise-grove': {
     background: '#fff9f0',
@@ -193,7 +195,8 @@ const themes = {
     incorrectLetter: '#e05d5d',
     nextLetter: '#d4a600',
     spaces: '#ffc46c',
-    hover: '#bca86d'
+    hover: '#bca86d',
+    isThemeLight: true
   },
   'crystal-lake': {
     background: '#e3f7f6',
@@ -205,7 +208,8 @@ const themes = {
     incorrectLetter: '#f2778a',
     nextLetter: '#ffa15f',
     spaces: '#f8c97a',
-    hover: '#7abfae'
+    hover: '#7abfae',
+    isThemeLight: true
   },
   'lavender-bloom': {
     background: '#f8f4fa',
@@ -217,7 +221,8 @@ const themes = {
     incorrectLetter: '#eb799a',
     nextLetter: '#c27045',
     spaces: '#ffb07a',
-    hover: '#c49fcf'
+    hover: '#c49fcf',
+    isThemeLight: true
   },
   'zen-dunes': {
     background: '#f9f5eb',
@@ -229,8 +234,10 @@ const themes = {
     incorrectLetter: '#d8654f',
     nextLetter: '#b08e33',
     spaces: '#f7b56d',
-    hover: '#b7a179'
+    hover: '#b7a179',
+    isThemeLight: true
   },
+  // Dark Themes
   'night-lotus': {
     background: '#1c1b2a',
     typingBackground: '#242233',
@@ -241,7 +248,8 @@ const themes = {
     incorrectLetter: '#f0758a',
     nextLetter: '#ffd447',
     spaces: '#f8a45d',
-    hover: '#67a49f'
+    hover: '#67a49f',
+    isThemeLight: false
   },
   'shadow-fern': {
     background: '#1f2a23',
@@ -253,7 +261,8 @@ const themes = {
     incorrectLetter: '#e27979',
     nextLetter: '#ced44c',
     spaces: '#f8bb60',
-    hover: '#7aa48c'
+    hover: '#7aa48c',
+    isThemeLight: false
   },
   'muted-tides': {
     background: '#1d2326',
@@ -265,7 +274,8 @@ const themes = {
     incorrectLetter: '#dd7790',
     nextLetter: '#ffd661',
     spaces: '#ffc37e',
-    hover: '#7ea8be'
+    hover: '#7ea8be',
+    isThemeLight: false
   },
   'charcoal-tea': {
     background: '#1c1a17',
@@ -277,7 +287,8 @@ const themes = {
     incorrectLetter: '#e37c66',
     nextLetter: '#e9c04a',
     spaces: '#f3a35f',
-    hover: '#a2ae95'
+    hover: '#a2ae95',
+    isThemeLight: false
   },
   'velvet-dusk': {
     background: '#221e29',
@@ -289,13 +300,16 @@ const themes = {
     incorrectLetter: '#df6e93',
     nextLetter: '#ffcc4d',
     spaces: '#f8a97c',
-    hover: '#c3a9d6'
+    hover: '#c3a9d6',
+    isThemeLight: false
   }
 }
 
 function applyTheme(themeId) {
   const theme = themes[themeId];
+  let isLight = theme.isThemeLight;
 
+  changeIcon(isLight);
   document.body.style.backgroundColor = theme.background;
   lettersContainer.style.backgroundColor = theme.typingBackground;
   document.body.style.color = theme.text;
@@ -367,3 +381,14 @@ themeChoices.forEach(themeChoice => {
     applyTheme(selectedTheme);
   });
 });
+
+// Change icon
+const icon = document.querySelector('.keyzen-logo');
+
+function changeIcon(mode) {
+  if (mode) {
+    icon.src = './resources/media/black-icon.png';
+  } else {
+    icon.src = './resources/media/white-icon.png';
+  }
+}
