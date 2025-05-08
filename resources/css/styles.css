@@ -5,6 +5,8 @@
   --border-color: #b0c4c4;
   --letters-color: #2e3440;
   --hover-effect: #8abbb3;
+  --clicked-buttonBg: #a8d4cc;
+  --clicked-buttonText: #20302e;
 }
 
 * {
@@ -54,6 +56,11 @@ button:hover {
   cursor: pointer;
   color: var(--container-background);
   background-color: var(--text-color);
+}
+
+.selected {
+  background-color: var(--clicked-buttonBg);
+  color: var(--clicked-buttonText);
 }
 
 .hover:hover {

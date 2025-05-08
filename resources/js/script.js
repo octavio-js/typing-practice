@@ -151,16 +151,26 @@ function generateText() {
 }
 
 // Select amount of words
+let selectedButton;
+
 selectWordsButtons.forEach(button => {
   button.addEventListener('click', event => {
     button.blur();
+    selectedButton = button;
+    button.classList.add('selected');
     amountOfWords = Number(event.target.innerText);
+    highlightWordCount(selectedButton);
     generateText();
   });
 });
 
 // Highlight current word count
-function highlightWordCount(button){}
+function highlightWordCount(button){
+  selectWordsButtons.forEach(b => {
+    b.classList.remove('selected');
+  });
+  button.classList.add('selected');
+}
 
 // Themes
 const changeThemeDiv = document.querySelector('#change-theme');
@@ -186,6 +196,8 @@ const themes = {
     nextLetter: '#f0a202',
     spaces: '#c2b8a3',
     hover: '#8abbb3',
+    clickedButtonBg: '#a8d4cc',
+    clickedButtonText: '#20302e',
     isThemeLight: true
   },
   'sunrise-grove': {
@@ -199,6 +211,8 @@ const themes = {
     nextLetter: '#d4a600',
     spaces: '#ffc46c',
     hover: '#bca86d',
+    clickedButtonBg: '#f3c96b',
+    clickedButtonText: '#3a2c00',
     isThemeLight: true
   },
   'crystal-lake': {
@@ -212,6 +226,8 @@ const themes = {
     nextLetter: '#ffa15f',
     spaces: '#f8c97a',
     hover: '#7abfae',
+    clickedButtonBg: '#91e0d3',
+    clickedButtonText: '#18403a',
     isThemeLight: true
   },
   'lavender-bloom': {
@@ -225,6 +241,8 @@ const themes = {
     nextLetter: '#c27045',
     spaces: '#ffb07a',
     hover: '#c49fcf',
+    clickedButtonBg: '#d4a6e8',
+    clickedButtonText: '#3e2a4f',
     isThemeLight: true
   },
   'zen-dunes': {
@@ -238,6 +256,8 @@ const themes = {
     nextLetter: '#b08e33',
     spaces: '#f7b56d',
     hover: '#b7a179',
+    clickedButtonBg: '#d8ae64',
+    clickedButtonText: '#3a2f17',
     isThemeLight: true
   },
   // Dark Themes
@@ -252,6 +272,8 @@ const themes = {
     nextLetter: '#ffd447',
     spaces: '#f8a45d',
     hover: '#67a49f',
+    clickedButtonBg: '#413c5e',
+    clickedButtonText: '#eae6ff',
     isThemeLight: false
   },
   'shadow-fern': {
@@ -265,6 +287,8 @@ const themes = {
     nextLetter: '#ced44c',
     spaces: '#f8bb60',
     hover: '#7aa48c',
+    clickedButtonBg: '#4e6f5b',
+    clickedButtonText: '#e7fbee',
     isThemeLight: false
   },
   'muted-tides': {
@@ -278,6 +302,8 @@ const themes = {
     nextLetter: '#ffd661',
     spaces: '#ffc37e',
     hover: '#7ea8be',
+    clickedButtonBg: '#506a78',
+    clickedButtonText: '#e6f5ff',
     isThemeLight: false
   },
   'charcoal-tea': {
@@ -291,6 +317,8 @@ const themes = {
     nextLetter: '#e9c04a',
     spaces: '#f3a35f',
     hover: '#a2ae95',
+    clickedButtonBg: '#665c4a',
+    clickedButtonText: '#fff7e9',
     isThemeLight: false
   },
   'velvet-dusk': {
@@ -304,6 +332,8 @@ const themes = {
     nextLetter: '#ffcc4d',
     spaces: '#f8a97c',
     hover: '#c3a9d6',
+    clickedButtonBg: '#6f5c82',
+    clickedButtonText: '#fbeaff',
     isThemeLight: false
   }
 }
@@ -324,6 +354,8 @@ function applyTheme(themeId) {
   currentNextLetterCol = theme.nextLetter;
   currentNextSpaceCol = theme.spaces;
   document.documentElement.style.setProperty('--hover-effect', theme.hover);
+  document.documentElement.style.setProperty('--clicked-buttonBg', theme.clickedButtonBg);
+  document.documentElement.style.setProperty('--clicked-buttonText', theme.clickedButtonText);
   resetPage();
 }
 
