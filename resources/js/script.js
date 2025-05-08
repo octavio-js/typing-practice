@@ -12,14 +12,57 @@ const selectWordsButtons = document.querySelectorAll('.word-choice');
 
 document.addEventListener('DOMContentLoaded', generateText);
 
-function getKey(event) {
+// Letter validation
+let currentLetterColor = '#2e3440';
+let currentCorCharCol = '#3fa796';
+let currentIncorCharCol = '#d47fa6';
+let currentNextLetterCol = '#f0a202';
+let currentNextSpaceCol = '#c2b8a3';
+
+function isLetterCorrect(event) {
+  return event.key === letters[currentLetter] ? true : false;
+}
+
+function changeLettersColor() {
+  letterElements.forEach(letter => {
+    letter.style.color = currentLetterColor;
+  });
+}
+
+function changeCorIncorCharColor(isCorrect, letterColor, spaceColor) {
+  if (isCorrect) {
+    if (letters[currentLetter] === ' ') {
+      letterElements[currentLetter].style.backgroundColor = spaceColor;
+    } else {
+      letterElements[currentLetter].style.color = letterColor;
+    }
+  } else {
+    if (letters[currentLetter] === ' ') {
+      letterElements[currentLetter].style.backgroundColor = spaceColor;
+    } else {
+      letterElements[currentLetter].style.color = letterColor;
+    }
+  }
+}
+
+function changeNextCharColor(letterColor, spaceColor) {
   try {
     if (letters[currentLetter + 1] === ' ') {
-      letterElements[currentLetter + 1].style.backgroundColor = '#c2b8a3';
+      letterElements[currentLetter + 1].style.backgroundColor = spaceColor;
     } else {
-      letterElements[currentLetter + 1].style.color = '#f0a202';
+      letterElements[currentLetter + 1].style.color = letterColor;
     }
-  } catch(e){}
+  } catch (e) { }
+}
+
+function getKey(event) {
+  let isCorrect;
+
+  if (event.key === ' ') {
+    event.preventDefault();
+  }
+
+  changeNextCharColor(currentNextLetterCol, currentNextSpaceCol);
 
   const rect = letterElements[currentLetter].getBoundingClientRect();
   const containerRect = lettersContainer.getBoundingClientRect();
@@ -27,24 +70,15 @@ function getKey(event) {
     lettersContainer.scrollTop += rect.bottom - containerRect.bottom + 60;
   }
 
-  if (event.key === letters[currentLetter]) {
-    if (letters[currentLetter] === ' ') {
-      letterElements[currentLetter].style.backgroundColor = '#3fa796';
-      currentLetter++;
-      correctChars++;
-    } else {
-      letterElements[currentLetter].style.color = '#3fa796';
-      currentLetter++;
-      correctChars++;
-    }
+  if (isLetterCorrect(event)) {
+    isCorrect = true;
+    changeCorIncorCharColor(isCorrect, currentCorCharCol, currentCorCharCol);
+    currentLetter++;
+    correctChars++;
   } else {
-    if (letters[currentLetter] === ' ') {
-      letterElements[currentLetter].style.backgroundColor = '#d47fa6';
-      currentLetter++;
-    } else {
-      letterElements[currentLetter].style.color = '#d47fa6';
-      currentLetter++;
-    }
+    isCorrect = false;
+    changeCorIncorCharColor(isCorrect, currentIncorCharCol, currentIncorCharCol);
+    currentLetter++;
   }
 
   if (currentLetter === letters.length) {
@@ -112,6 +146,7 @@ function generateText() {
         lettersContainer.appendChild(newLetter);
         letterElements.push(newLetter);
       });
+      changeLettersColor();
     });
 }
 
@@ -121,5 +156,214 @@ selectWordsButtons.forEach(button => {
     button.blur();
     amountOfWords = Number(event.target.innerText);
     generateText();
+  });
+});
+
+// Themes
+const changeThemeDiv = document.querySelector('#change-theme');
+const lightModeDiv = document.querySelector('#light-mode');
+const darkModeDiv = document.querySelector('#dark-mode');
+const lightThemes = document.querySelector('.light-themes');
+const darkThemes = document.querySelector('.dark-themes');
+const themeChoices = document.querySelectorAll('.theme-choice');
+let areThemesOpen = false;
+let areLightThemesOpen = false;
+let areDarkThemesOpen = false;
+
+const themes = {
+  'soft-focus': {
+    background: '#dfe6e6',
+    typingBackground: '#e4f1ef',
+    text: '#2e3440',
+    borders: '#b0c4c4',
+    defaultLetters: '#2e3440',
+    correctLetter: '#3fa796',
+    incorrectLetter: '#d47fa6',
+    nextLetter: '#f0a202',
+    spaces: '#c2b8a3',
+    hover: '#8abbb3'
+  },
+  'sunrise-grove': {
+    background: '#fff9f0',
+    typingBackground: '#fffdf8',
+    text: '#3a3d27',
+    borders: '#cec1aa',
+    defaultLetters: '#3a3d27',
+    correctLetter: '#5caa72',
+    incorrectLetter: '#e05d5d',
+    nextLetter: '#d4a600',
+    spaces: '#ffc46c',
+    hover: '#bca86d'
+  },
+  'crystal-lake': {
+    background: '#e3f7f6',
+    typingBackground: '#f4fcfc',
+    text: '#284248',
+    borders: '#b0dad7',
+    defaultLetters: '#284248',
+    correctLetter: '#34bfa1',
+    incorrectLetter: '#f2778a',
+    nextLetter: '#ffa15f',
+    spaces: '#f8c97a',
+    hover: '#7abfae'
+  },
+  'lavender-bloom': {
+    background: '#f8f4fa',
+    typingBackground: '#fefbff',
+    text: '#3e3b4f',
+    borders: '#d3c0dc',
+    defaultLetters: '#3e3b4f',
+    correctLetter: '#84d3b1',
+    incorrectLetter: '#eb799a',
+    nextLetter: '#c27045',
+    spaces: '#ffb07a',
+    hover: '#c49fcf'
+  },
+  'zen-dunes': {
+    background: '#f9f5eb',
+    typingBackground: '#fefbf3',
+    text: '#3a382f',
+    borders: '#dcd1ba',
+    defaultLetters: '#3a382f',
+    correctLetter: '#71b67a',
+    incorrectLetter: '#d8654f',
+    nextLetter: '#b08e33',
+    spaces: '#f7b56d',
+    hover: '#b7a179'
+  },
+  'night-lotus': {
+    background: '#1c1b2a',
+    typingBackground: '#242233',
+    text: '#dde1eb',
+    borders: '#3a3752',
+    defaultLetters: '#dde1eb',
+    correctLetter: '#70d1b4',
+    incorrectLetter: '#f0758a',
+    nextLetter: '#ffd447',
+    spaces: '#f8a45d',
+    hover: '#67a49f'
+  },
+  'shadow-fern': {
+    background: '#1f2a23',
+    typingBackground: '#26322c',
+    text: '#d6e7db',
+    borders: '#395145',
+    defaultLetters: '#d6e7db',
+    correctLetter: '#8ddcaa',
+    incorrectLetter: '#e27979',
+    nextLetter: '#ced44c',
+    spaces: '#f8bb60',
+    hover: '#7aa48c'
+  },
+  'muted-tides': {
+    background: '#1d2326',
+    typingBackground: '#282e31',
+    text: '#d0dce6',
+    borders: '#41545a',
+    defaultLetters: '#d0dce6',
+    correctLetter: '#7fc0e3',
+    incorrectLetter: '#dd7790',
+    nextLetter: '#ffd661',
+    spaces: '#ffc37e',
+    hover: '#7ea8be'
+  },
+  'charcoal-tea': {
+    background: '#1c1a17',
+    typingBackground: '#26231f',
+    text: '#f3eee7',
+    borders: '#3f3c37',
+    defaultLetters: '#f3eee7',
+    correctLetter: '#98d4a2',
+    incorrectLetter: '#e37c66',
+    nextLetter: '#e9c04a',
+    spaces: '#f3a35f',
+    hover: '#a2ae95'
+  },
+  'velvet-dusk': {
+    background: '#221e29',
+    typingBackground: '#2b2734',
+    text: '#f2eff7',
+    borders: '#4c4656',
+    defaultLetters: '#f2eff7',
+    correctLetter: '#a3bce3',
+    incorrectLetter: '#df6e93',
+    nextLetter: '#ffcc4d',
+    spaces: '#f8a97c',
+    hover: '#c3a9d6'
+  }
+}
+
+function applyTheme(themeId) {
+  const theme = themes[themeId];
+
+  document.body.style.backgroundColor = theme.background;
+  lettersContainer.style.backgroundColor = theme.typingBackground;
+  document.body.style.color = theme.text;
+  lettersContainer.style.border = theme.border;
+  currentLetterColor = theme.defaultLetters;
+  currentCorCharCol = theme.correctLetter;
+  currentIncorCharCol = theme.incorrectLetter;
+  currentNextLetterCol = theme.nextLetter;
+  currentNextSpaceCol = theme.spaces;
+  document.documentElement.style.setProperty('--hover-effect', theme.hover);
+  resetPage();
+}
+
+document.body.addEventListener('click', (event) => {
+  if (!changeThemeDiv.contains(event.target)) {
+    lightModeDiv.style.display = 'none';
+    darkModeDiv.style.display = 'none';
+    lightThemes.style.display = 'none';
+    darkThemes.style.display = 'none';
+    areThemesOpen = false;
+    areLightThemesOpen = false;
+    areDarkThemesOpen = false;
+  }
+});
+
+changeThemeDiv.addEventListener('click', () => {
+  if (areThemesOpen) {
+    lightModeDiv.style.display = 'none';
+    darkModeDiv.style.display = 'none';
+    lightThemes.style.display = 'none';
+    darkThemes.style.display = 'none';
+    areLightThemesOpen = false;
+    areDarkThemesOpen = false;
+  } else {
+    lightModeDiv.style.display = 'block';
+    darkModeDiv.style.display = 'block';
+  }
+  areThemesOpen = !areThemesOpen;
+});
+
+lightModeDiv.addEventListener('click', event => {
+  event.stopPropagation();
+  if (areLightThemesOpen) {
+    lightThemes.style.display = 'none';
+  } else {
+    lightThemes.style.display = 'block';
+    darkThemes.style.display = 'none';
+    areDarkThemesOpen = false;
+  }
+  areLightThemesOpen = !areLightThemesOpen;
+});
+
+darkModeDiv.addEventListener('click', event => {
+  event.stopPropagation();
+  if (areDarkThemesOpen) {
+    darkThemes.style.display = 'none';
+  } else {
+    darkThemes.style.display = 'block';
+    lightThemes.style.display = 'none';
+    areLightThemesOpen = false;
+  }
+  areDarkThemesOpen = !areDarkThemesOpen;
+});
+
+themeChoices.forEach(themeChoice => {
+  themeChoice.addEventListener('click', event => {
+    event.stopPropagation();
+    const selectedTheme = event.target.id;
+    applyTheme(selectedTheme);
   });
 });
