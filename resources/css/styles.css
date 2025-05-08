@@ -44,6 +44,18 @@ main {
   justify-content: center;
 }
 
+button {
+  border: 2px solid var(--border-color);
+  color: var(--text-color);
+  background-color: var(--container-background);
+}
+
+button:hover {
+  cursor: pointer;
+  color: var(--container-background);
+  background-color: var(--text-color);
+}
+
 .hover:hover {
   color: var(--hover-effect);
 }
