@@ -159,6 +159,9 @@ selectWordsButtons.forEach(button => {
   });
 });
 
+// Highlight current word count
+function highlightWordCount(button){}
+
 // Themes
 const changeThemeDiv = document.querySelector('#change-theme');
 const lightModeDiv = document.querySelector('#light-mode');
@@ -310,10 +313,11 @@ function applyTheme(themeId) {
   let isLight = theme.isThemeLight;
 
   changeIcon(isLight);
-  document.body.style.backgroundColor = theme.background;
-  lettersContainer.style.backgroundColor = theme.typingBackground;
-  document.body.style.color = theme.text;
-  lettersContainer.style.border = theme.border;
+  document.documentElement.style.setProperty('--background-color', theme.background);
+  document.documentElement.style.setProperty('--container-background', theme.typingBackground);
+  document.documentElement.style.setProperty('--text-color', theme.text);
+  document.documentElement.style.setProperty('--border-color', theme.borders);
+  document.documentElement.style.setProperty('--letters-color', theme.defaultLetters);
   currentLetterColor = theme.defaultLetters;
   currentCorCharCol = theme.correctLetter;
   currentIncorCharCol = theme.incorrectLetter;

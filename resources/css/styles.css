@@ -1,4 +1,9 @@
 :root {
+  --background-color: #dfe6e6;
+  --container-background: #e4f1ef;
+  --text-color: #2e3440;
+  --border-color: #b0c4c4;
+  --letters-color: #2e3440;
   --hover-effect: #8abbb3;
 }
 
@@ -11,8 +16,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background-color: #dfe6e6;
-  color: #2e3440;
+  background-color: var(--background-color);
+  color: var(--text-color);
   height: 97vh;
 }
 
@@ -64,12 +69,12 @@ main {
   font-size: 36px;
   letter-spacing: 1.5px;
   font-family: sans-serif;
-  color: #2e3440;
+  color: var(--letters-color);
 }
 
 #letters-container {
-  background-color: #e4f1ef;
-  border: 2px solid #b0c4c4;
+  background-color: var(--container-background);
+  border: 2px solid var(--border-color);
   width: 50%;
   max-height: 200px;
   overflow-y: auto;
