@@ -3,10 +3,13 @@ let letters = [];
 let letterElements = [];
 let currentLetter = 0;
 let correctChars = 0;
+let incorrectChars = 0;
+let missedSpaces = 0;
 let amountOfWords = 30;
 
 const lettersContainer = document.querySelector('#letters-container');
 const accuracy = document.querySelector('#accuracy');
+const stats = document.querySelector('#stats');
 const resetButton = document.querySelector('#reset');
 const selectWordsButtons = document.querySelectorAll('.word-choice');
 
@@ -39,6 +42,7 @@ function changeCorIncorCharColor(isCorrect, letterColor, spaceColor) {
   } else {
     if (letters[currentLetter] === ' ') {
       letterElements[currentLetter].style.backgroundColor = spaceColor;
+      missedSpaces++;
     } else {
       letterElements[currentLetter].style.color = letterColor;
     }
@@ -79,13 +83,10 @@ function getKey(event) {
     isCorrect = false;
     changeCorIncorCharColor(isCorrect, currentIncorCharCol, currentIncorCharCol);
     currentLetter++;
+    incorrectChars++;
   }
 
-  if (currentLetter === letters.length) {
-    document.body.removeEventListener('keydown', getKey);
-    accuracy.style.display = 'block';
-    accuracy.innerHTML = `Accuracy: ${Math.floor((correctChars * 100) / letters.length)}%`;
-  }
+  showStatistics();
 }
 
 document.body.addEventListener('keydown', getKey);
@@ -94,6 +95,17 @@ document.body.addEventListener('keydown', event => {
     resetPage();
   }
 });
+
+// Show statistics
+function showStatistics() {
+  if (currentLetter === letters.length) {
+    document.body.removeEventListener('keydown', getKey);
+    accuracy.style.display = 'block';
+    stats.style.display = 'block';
+    accuracy.innerHTML = `Accuracy: ${Math.floor((correctChars * 100) / letters.length)}%`;
+    stats.innerHTML = `${letters.length} / ${correctChars} / ${incorrectChars} / ${missedSpaces}`;
+  }
+}
 
 // Reset Button
 resetButton.addEventListener('click', resetPage);
@@ -107,7 +119,10 @@ function resetPage() {
   letterElements = [];
   currentLetter = 0;
   correctChars = 0;
+  incorrectChars = 0;
+  missedSpaces = 0;
   accuracy.style.display = 'none';
+  stats.style.display = 'none';
   document.body.addEventListener('keydown', getKey);
   generateText();
 }

@@ -115,6 +115,10 @@ button:hover {
   display: none;
 }
 
+#stats {
+  display: none;
+}
+
 #reset-container {
   text-align: center;
   width: 100%;
