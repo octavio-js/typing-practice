@@ -13,7 +13,13 @@ const stats = document.querySelector('#stats');
 const resetButton = document.querySelector('#reset');
 const selectWordsButtons = document.querySelectorAll('.word-choice');
 
-document.addEventListener('DOMContentLoaded', generateText);
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('keyzen-theme');
+  if (savedTheme && themes[savedTheme]) {
+    applyTheme(savedTheme);
+  }
+  generateText();
+});
 
 // Letter validation
 let currentLetterColor = '#2e3440';
@@ -356,6 +362,8 @@ const themes = {
 function applyTheme(themeId) {
   const theme = themes[themeId];
   let isLight = theme.isThemeLight;
+
+  localStorage.setItem('keyzen-theme', themeId);
 
   changeIcon(isLight);
   document.documentElement.style.setProperty('--background-color', theme.background);
