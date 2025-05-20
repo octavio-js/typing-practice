@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (savedTheme && themes[savedTheme]) {
     applyTheme(savedTheme);
   }
-  generateText();
 });
 
 // Letter validation
