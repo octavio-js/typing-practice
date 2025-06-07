@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const savedTheme = localStorage.getItem('keyzen-theme');
   if (savedTheme && themes[savedTheme]) {
     applyTheme(savedTheme);
+  } else {
+    generateText();
   }
 });
 
