@@ -14,13 +14,14 @@
 }
 
 body {
+  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   background-color: var(--background-color);
   color: var(--text-color);
-  height: 97vh;
+  height: 100vh;
 }
 
 h1, h2, h3,
@@ -34,6 +35,7 @@ p {
 
 header {
   width: 100%;
+  height: 15%;
   display: flex;
 }
 
@@ -81,6 +83,7 @@ button:hover {
 
 #amount-of-words {
   text-align: center;
+  margin-right: 10px;
 }
 
 .letter {
