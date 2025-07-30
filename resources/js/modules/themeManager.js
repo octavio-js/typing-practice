@@ -1,4 +1,20 @@
-function applyTheme(themeId) {
+import { themes } from './constants.js';
+import { state } from "./stateManager.js";
+import { resetPage } from './uiManager.js';
+import {
+  changeThemeDiv, lightModeDiv, darkModeDiv, themeChoices,
+  lightModeDiv, darkModeDiv, lightThemes, darkThemes
+} from './domElements.js';
+
+function changeIcon(mode) {
+  if (mode) {
+    icon.src = './resources/media/black-icon.png';
+  } else {
+    icon.src = './resources/media/white-icon.png';
+  }
+}
+
+export function applyTheme(themeId) {
   const theme = themes[themeId];
   let isLight = theme.isThemeLight;
 
@@ -10,62 +26,54 @@ function applyTheme(themeId) {
   document.documentElement.style.setProperty('--text-color', theme.text);
   document.documentElement.style.setProperty('--border-color', theme.borders);
   document.documentElement.style.setProperty('--letters-color', theme.defaultLetters);
-  currentLetterColor = theme.defaultLetters;
-  currentCorCharCol = theme.correctLetter;
-  currentIncorCharCol = theme.incorrectLetter;
-  currentNextLetterCol = theme.nextLetter;
-  currentNextSpaceCol = theme.spaces;
+  state.currentLetterColor = theme.defaultLetters;
+  state.currentCorCharCol = theme.correctLetter;
+  state.currentIncorCharCol = theme.incorrectLetter;
+  state.currentNextLetterCol = theme.nextLetter;
+  state.currentNextSpaceCol = theme.spaces;
   document.documentElement.style.setProperty('--hover-effect', theme.hover);
   document.documentElement.style.setProperty('--clicked-buttonBg', theme.clickedButtonBg);
   document.documentElement.style.setProperty('--clicked-buttonText', theme.clickedButtonText);
   resetPage();
 }
 
-function changeIcon(mode) {
-  if (mode) {
-    icon.src = './resources/media/black-icon.png';
-  } else {
-    icon.src = './resources/media/white-icon.png';
-  }
-}
-
 changeThemeDiv.addEventListener('click', () => {
-  if (areThemesOpen) {
+  if (state.areThemesOpen) {
     lightModeDiv.style.display = 'none';
     darkModeDiv.style.display = 'none';
     lightThemes.style.display = 'none';
     darkThemes.style.display = 'none';
-    areLightThemesOpen = false;
-    areDarkThemesOpen = false;
+    state.areLightThemesOpen = false;
+    state.areDarkThemesOpen = false;
   } else {
     lightModeDiv.style.display = 'block';
     darkModeDiv.style.display = 'block';
   }
-  areThemesOpen = !areThemesOpen;
+  state.areThemesOpen = !state.areThemesOpen;
 });
 
 lightModeDiv.addEventListener('click', event => {
   event.stopPropagation();
-  if (areLightThemesOpen) {
+  if (state.areLightThemesOpen) {
     lightThemes.style.display = 'none';
   } else {
     lightThemes.style.display = 'block';
     darkThemes.style.display = 'none';
-    areDarkThemesOpen = false;
+    state.areDarkThemesOpen = false;
   }
-  areLightThemesOpen = !areLightThemesOpen;
+  state.areLightThemesOpen = !state.areLightThemesOpen;
 });
 
 darkModeDiv.addEventListener('click', event => {
   event.stopPropagation();
-  if (areDarkThemesOpen) {
+  if (state.areDarkThemesOpen) {
     darkThemes.style.display = 'none';
   } else {
     darkThemes.style.display = 'block';
     lightThemes.style.display = 'none';
-    areLightThemesOpen = false;
+    state.areLightThemesOpen = false;
   }
-  areDarkThemesOpen = !areDarkThemesOpen;
+  state.areDarkThemesOpen = !state.areDarkThemesOpen;
 });
 
 themeChoices.forEach(themeChoice => {

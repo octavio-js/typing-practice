@@ -1,15 +1,19 @@
+import { state } from "./stateManager.js";
+import { lettersContainer } from "./domElements.js";
+import { showStatistics } from './statistics.js';
+
 function isLetterCorrect(event) {
-  return event.key === letters[currentLetter] ? true : false;
+  return event.key === state.letters[state.currentLetter] ? true : false;
 }
 
-function getKey(event) {
+export function getKey(event) {
   let isCorrect;
   if (event.key === ' ') {
     event.preventDefault();
   }
-  changeNextCharColor(currentNextLetterCol, currentNextSpaceCol);
+  changeNextCharColor(state.currentNextLetterCol, state.currentNextSpaceCol);
 
-  const rect = letterElements[currentLetter].getBoundingClientRect();
+  const rect = state.letterElements[state.currentLetter].getBoundingClientRect();
   const containerRect = lettersContainer.getBoundingClientRect();
   if (rect.bottom > containerRect.bottom - 20) {
     lettersContainer.scrollTop += rect.bottom - containerRect.bottom + 60;
@@ -17,47 +21,47 @@ function getKey(event) {
 
   if (isLetterCorrect(event)) {
     isCorrect = true;
-    changeCorIncorCharColor(isCorrect, currentCorCharCol, currentCorCharCol);
-    currentLetter++;
-    correctChars++;
+    changeCorIncorCharColor(isCorrect, state.currentCorCharCol, state.currentCorCharCol);
+    state.currentLetter++;
+    state.correctChars++;
   } else {
     isCorrect = false;
-    changeCorIncorCharColor(isCorrect, currentIncorCharCol, currentIncorCharCol);
-    currentLetter++;
-    incorrectChars++;
+    changeCorIncorCharColor(isCorrect, state.currentIncorCharCol, state.currentIncorCharCol);
+    state.currentLetter++;
+    state.incorrectChars++;
   }
   showStatistics();
 }
 
-function changeLettersColor() {
-  letterElements.forEach(letter => {
-    letter.style.color = currentLetterColor;
+export function changeLettersColor() {
+  state.letterElements.forEach(letter => {
+    letter.style.color = state.currentLetterColor;
   });
 }
 
 function changeCorIncorCharColor(isCorrect, letterColor, spaceColor) {
   if (isCorrect) {
-    if (letters[currentLetter] === ' ') {
-      letterElements[currentLetter].style.backgroundColor = spaceColor;
+    if (state.letters[state.currentLetter] === ' ') {
+      state.letterElements[state.currentLetter].style.backgroundColor = spaceColor;
     } else {
-      letterElements[currentLetter].style.color = letterColor;
+      state.letterElements[state.currentLetter].style.color = letterColor;
     }
   } else {
-    if (letters[currentLetter] === ' ') {
-      letterElements[currentLetter].style.backgroundColor = spaceColor;
-      missedSpaces++;
+    if (state.letters[state.currentLetter] === ' ') {
+      state.letterElements[state.currentLetter].style.backgroundColor = spaceColor;
+      state.missedSpaces++;
     } else {
-      letterElements[currentLetter].style.color = letterColor;
+      state.letterElements[state.currentLetter].style.color = letterColor;
     }
   }
 }
 
 function changeNextCharColor(letterColor, spaceColor) {
   try {
-    if (letters[currentLetter + 1] === ' ') {
-      letterElements[currentLetter + 1].style.backgroundColor = spaceColor;
+    if (state.letters[state.currentLetter + 1] === ' ') {
+      state.letterElements[state.currentLetter + 1].style.backgroundColor = spaceColor;
     } else {
-      letterElements[currentLetter + 1].style.color = letterColor;
+      state.letterElements[state.currentLetter + 1].style.color = letterColor;
     }
   } catch (e) {}
 }
