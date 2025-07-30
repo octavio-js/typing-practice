@@ -1,0 +1,12 @@
+export const lettersContainer = document.querySelector('#letters-container');
+export const accuracy = document.querySelector('#accuracy');
+export const stats = document.querySelector('#stats');
+export const resetButton = document.querySelector('#reset');
+export const selectWordsButtons = document.querySelectorAll('.word-choice');
+export const icon = document.querySelector('.keyzen-logo');
+export const changeThemeDiv = document.querySelector('#change-theme');
+export const lightModeDiv = document.querySelector('#light-mode');
+export const darkModeDiv = document.querySelector('#dark-mode');
+export const lightThemes = document.querySelector('.light-themes');
+export const darkThemes = document.querySelector('.dark-themes');
+export const themeChoices = document.querySelectorAll('.theme-choice');
