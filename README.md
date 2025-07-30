@@ -76,8 +76,8 @@ The application runs entirely in the browser with no server-side dependencies. S
 ## Technical Architecture
 
 ### Frontend Stack
-- **HTML5**: Semantic markup for accessibility and SEO
-- **CSS3**: Custom properties (CSS variables) for dynamic theming
+- **HTML**: Semantic markup for accessibility
+- **CSS**: Custom properties (CSS variables) for dynamic theming
 - **Vanilla JavaScript**: No frameworks required, ensuring fast loading and broad compatibility
 
 ### Project Structure
@@ -151,6 +151,6 @@ We are committed to providing a welcoming and inclusive environment for all cont
 
 ---
 
-**Happy typing!** 🎯✨
+**Happy typing!** ⌨️🎯✨
 
 For questions, suggestions, or to report issues, please open an issue on GitHub or reach out directly to me.
