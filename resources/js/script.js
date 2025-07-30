@@ -1,3 +1,14 @@
+import { themes } from './modules/constants.js';
+import { applyTheme } from './modules/themeManager.js';
+import { generateText } from './modules/wordGenerator.js';
+import { getKey } from './modules/typingEngine.js';
+import { resetPage } from './modules/uiManager.js';
+import {
+  changeThemeDiv, lightModeDiv, darkModeDiv,
+  lightThemes, darkThemes, resetButton
+} from './modules/domElements.js';
+import { state } from './modules/stateManager.js';
+
 document.addEventListener('DOMContentLoaded', () => {
   const savedTheme = localStorage.getItem('keyzen-theme');
   if (savedTheme && themes[savedTheme]) {
@@ -20,9 +31,9 @@ document.body.addEventListener('click', (event) => {
     darkModeDiv.style.display = 'none';
     lightThemes.style.display = 'none';
     darkThemes.style.display = 'none';
-    areThemesOpen = false;
-    areLightThemesOpen = false;
-    areDarkThemesOpen = false;
+    state.areThemesOpen = false;
+    state.areLightThemesOpen = false;
+    state.areDarkThemesOpen = false;
   }
 });
 
