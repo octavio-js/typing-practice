@@ -3,7 +3,7 @@ import { state } from "./stateManager.js";
 import { resetPage } from './uiManager.js';
 import {
   changeThemeDiv, lightModeDiv, darkModeDiv, themeChoices,
-  lightModeDiv, darkModeDiv, lightThemes, darkThemes
+  lightThemes, darkThemes, icon
 } from './domElements.js';
 
 function changeIcon(mode) {
