@@ -50,7 +50,7 @@ selectWordsButtons.forEach(button => {
     state.selectedButton = button;
     button.classList.add('selected');
     state.amountOfWords = Number(event.target.innerText);
-    highlightWordCount(selectedButton);
+    highlightWordCount(state.selectedButton);
     generateText();
   });
 });
