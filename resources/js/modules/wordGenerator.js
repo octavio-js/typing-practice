@@ -10,6 +10,7 @@ export function generateText() {
   state.text = '';
   state.letters = [];
   state.letterElements = [];
+  lettersContainer.scrollTop = 0;
   state.currentLetter = 0;
   state.correctChars = 0;
   accuracy.style.display = 'none';
